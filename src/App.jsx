@@ -5,6 +5,7 @@ import TodoList from './components/todo-list';
 import TodoModal from './components/todo-modal';
 import FilterModal from './components/filter-modal';
 import DeleteModal from './components/delete-modal';
+import EditModal from './components/edit-modal';
 
 function App() {
   const [tasks, setTasks] = useState([
@@ -33,7 +34,9 @@ function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [taskToDelete, setTaskToDelete] = useState(null);
+  const [taskToEdit, setTaskToEdit] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -57,6 +60,19 @@ function App() {
     setTasks(tasks.filter(task => task.id !== taskId));
     setIsDeleteModalOpen(false);
     setTaskToDelete(null);
+  };
+
+  const openEditModal = (task) => {
+    setTaskToEdit(task);
+    setIsEditModalOpen(true);
+  };
+
+  const handleUpdateTask = (updatedTask) => {
+    setTasks(tasks.map(task =>
+      task.id === updatedTask.id ? updatedTask : task
+    ));
+    setIsEditModalOpen(false);
+    setTaskToEdit(null);
   };
 
   const filteredTasks = tasks.filter(task => {
@@ -92,6 +108,7 @@ function App() {
           tasks={filteredTasks}
           onToggle={toggleTask}
           onDelete={openDeleteModal}
+          onEdit={openEditModal}
         />
       </TodoCardComponent>
 
@@ -113,6 +130,13 @@ function App() {
         onClose={() => setIsDeleteModalOpen(false)}
         task={taskToDelete}
         onConfirm={handleDeleteConfirm}
+      />
+
+      <EditModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        task={taskToEdit}
+        onUpdate={handleUpdateTask}
       />
     </>
   );

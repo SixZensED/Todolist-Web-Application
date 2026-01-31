@@ -674,3 +674,72 @@
   -webkit-mask-size: contain;
   display: inline-block;
 }
+
+/* Edit Modal specific styles */
+.edit-modal-content {
+  gap: 10px;
+}
+
+.edit-modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.edit-modal-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1.2;
+}
+
+.edit-modal-description {
+  margin: 0;
+  font-size: 16px;
+  color: #777;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+.modal-date-display {
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+}
+
+.edit-task-btn {
+  background: #008f5d;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 10px 20px;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 143, 93, 0.3);
+  transition: all 0.2s;
+}
+
+.edit-task-btn:hover {
+  background: #007a4f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 143, 93, 0.4);
+}
+
+.edit-btn-icon {
+  width: 18px;
+  height: 18px;
+  filter: brightness(0) invert(1);
+  /* Make icon white */
+}
+
+.edit-textarea {
+  min-height: 80px;
+  resize: none;
+  font-family: inherit;
+  margin-top: 5px;
+}

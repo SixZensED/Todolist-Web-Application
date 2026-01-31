@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoItem from './todo-item';
 
-const todo_list = ({ tasks, onToggle, onDelete }) => {
+const todo_list = ({ tasks, onToggle, onDelete, onEdit }) => {
     // Rename for JSX
     const TodoItemComponent = TodoItem;
 
@@ -10,9 +10,10 @@ const todo_list = ({ tasks, onToggle, onDelete }) => {
             {tasks.map((task, index) => (
                 <TodoItemComponent
                     key={task.id || index}
-                    {...task}
+                    task={task}
                     onToggle={() => onToggle(task.id)}
                     onDelete={() => onDelete(task)}
+                    onEdit={onEdit}
                 />
             ))}
         </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 
-const todo_item = ({ title, description, date, completed, onToggle, onDelete }) => {
+const todo_item = ({ task, onToggle, onDelete, onEdit }) => {
+    const { title, description, date, completed } = task;
     return (
         <div className={`todo-item ${completed ? 'completed' : ''}`}>
             <div className="todo-item-check">
@@ -24,7 +25,7 @@ const todo_item = ({ title, description, date, completed, onToggle, onDelete }) 
                 )}
             </div>
             <div className="todo-item-actions">
-                <button className="action-btn edit-btn">
+                <button className="action-btn edit-btn" onClick={() => onEdit(task)}>
                     <img src="/images/Edit.png" alt="Edit" className="action-icon" />
                 </button>
                 <button className="action-btn delete-btn" onClick={onDelete}>
