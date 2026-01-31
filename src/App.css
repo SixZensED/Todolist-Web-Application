@@ -1,0 +1,676 @@
+.todo-card {
+  position: relative;
+  width: 700px;
+  /* Increased from 600px */
+  height: 700px;
+  /* Increased from 600px */
+  max-width: 95vw;
+  max-height: 95vh;
+  background-color: #dcdcdc;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 60px rgba(0, 0, 0, 0.5), inset 0 0 1px 1px rgba(255, 255, 255, 0.5);
+  padding: 35px 50px 50px 50px;
+  /* Scaled up padding */
+  display: flex;
+  flex-direction: column;
+}
+
+.noise-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('/images/Noise.png');
+  background-repeat: repeat;
+  opacity: 0.35;
+  /* Increased noise for better texture */
+  pointer-events: none;
+  z-index: 1;
+  mix-blend-mode: soft-light;
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  /* Increased margin to move controls down */
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.header-logo {
+  width: 26px;
+  /* Scaled up from 22px */
+  height: 26px;
+  /* Scaled up from 22px */
+  display: block;
+  object-fit: contain;
+}
+
+.todo-header-title {
+  margin: 0;
+  font-size: 26px;
+  /* Scaled up from 22px */
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(to bottom, #0D9F60, #006B0C);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transform: translateY(-2px);
+}
+
+.todo-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  /* Reduced margin to close gap with list */
+}
+
+.new-task-btn {
+  background-color: #008f5d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  /* Slightly scaled up radius */
+  padding: 8px 18px;
+  /* Scaled up from 6px 14px */
+  font-size: 14px;
+  /* Scaled up from 12px */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /* Scaled up gap */
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 10px rgba(0, 143, 93, 0.3);
+}
+
+.new-task-btn:hover {
+  background-color: #007a4f;
+}
+
+.search-container {
+  display: flex;
+  gap: 5px;
+  /* Reduced gap as requested */
+  align-items: center;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  color: #666;
+}
+
+.search-input {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  padding: 10px 15px 10px 40px;
+  /* Scaled up padding */
+  width: 220px;
+  /* Increased from 180px */
+  font-size: 14px;
+  /* Scaled up from 12px */
+  color: #333;
+  outline: none;
+}
+
+.shortcut-hint {
+  position: absolute;
+  right: 10px;
+  /* Increased from 8px */
+  background-color: #444;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 0 7px;
+  /* Scaled up horizontal padding */
+  height: 22px;
+  /* Increased from 18px */
+  border-radius: 4px;
+  font-size: 11px;
+  /* Increased from 9px */
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  /* Scaled up gap */
+}
+
+.cmd-icon {
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
+}
+
+.filter-btn {
+  background: none;
+  border: none;
+  color: #444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  /* Reduced padding */
+  opacity: 0.7;
+}
+
+.filter-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+}
+
+.filter-btn:hover {
+  opacity: 1;
+}
+
+.todo-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  flex: 1;
+  overflow-y: auto;
+  padding-right: 5px;
+  /* Space for scrollbar */
+}
+
+.todo-item {
+  background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  /* Scaled up from 6px */
+  padding: 15px 25px;
+  /* Scaled up from 12px 20px */
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  /* Scaled up from 15px */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+}
+
+.todo-item:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+
+
+.todo-item.completed .todo-item-title {
+  text-decoration: line-through;
+  color: #888;
+  /* Slightly darker grey than before but not faded */
+}
+
+.todo-item.completed .todo-item-description {
+  text-decoration: line-through;
+  color: #aaa;
+}
+
+.todo-item-check {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+
+.todo-item-check input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.todo-item-check .checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  /* More consistent with design */
+  border-radius: 4px;
+}
+
+.todo-item-check input:checked~.checkmark {
+  background-color: #008f5d;
+  border-color: #008f5d;
+  background-image: url('/images/CheckIcon.png');
+  background-size: 18px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.todo-item-check .checkmark:after {
+  display: none;
+}
+
+.todo-item-content {
+  flex: 1;
+}
+
+.todo-item-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.todo-item-title {
+  font-weight: 700;
+  font-size: 19px;
+  /* Scaled up from 16px */
+  color: #333;
+}
+
+.todo-item-description {
+  font-size: 15px;
+  /* Scaled up from 13px */
+  color: #888;
+  font-weight: 400;
+}
+
+.todo-item-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  font-size: 14px;
+  /* Scaled up from 12px */
+  font-weight: 600;
+  color: #b8860b;
+}
+
+.todo-item-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.action-btn {
+  background: rgba(0, 0, 0, 0.03);
+  /* Subtle backdrop */
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  /* Scaled up from 6px */
+  width: 32px;
+  /* Scaled up from 26px */
+  height: 32px;
+  /* Scaled up from 26px */
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.action-icon {
+  width: 18px;
+  /* Scaled up from 14px */
+  height: 18px;
+  /* Scaled up from 14px */
+  object-fit: contain;
+  display: block;
+}
+
+.delete-btn {
+  background: rgba(255, 77, 77, 0.15);
+  /* Subtler background for delete or match дизайн */
+}
+
+.delete-btn svg {
+  stroke: #ff4d4d;
+}
+
+/* Specific button styles as per image */
+.action-btn.delete-btn {
+  background: rgba(255, 0, 0, 0.03);
+  border-color: rgba(255, 0, 0, 0.15);
+}
+
+.action-btn.delete-btn:hover {
+  background: rgba(255, 0, 0, 0.08);
+  border-color: rgba(255, 0, 0, 0.25);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(209, 213, 219, 0.3);
+  border-radius: 20px;
+  width: 550px;
+  padding: 30px;
+  position: relative;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: none;
+  border: none;
+  color: #333;
+  /* Darker as requested */
+  cursor: pointer;
+  padding: 5px;
+  transition: opacity 0.2s;
+}
+
+.modal-close-btn:hover {
+  opacity: 0.7;
+}
+
+.modal-title-input {
+  background: none;
+  border: none;
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  width: 100%;
+  outline: none;
+  padding: 5px 0;
+}
+
+.modal-title-input::placeholder {
+  color: #bbb;
+}
+
+.modal-desc-input {
+  background: none;
+  border: none;
+  font-size: 16px;
+  color: #666;
+  width: 100%;
+  outline: none;
+  padding: 5px 0;
+}
+
+.modal-desc-input::placeholder {
+  color: #ccc;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.modal-date-picker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 10px 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.due-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #888;
+}
+
+.modal-date-input {
+  background: none;
+  border: none;
+  font-size: 14px;
+  font-weight: 600;
+  color: #666;
+  outline: none;
+  width: 100px;
+}
+
+.modal-create-btn {
+  background: #008f5d;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 143, 93, 0.3);
+  transition: all 0.2s;
+}
+
+.modal-create-btn:hover {
+  background: #007a4f;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 143, 93, 0.4);
+}
+
+.modal-create-btn:active {
+  transform: translateY(0);
+}
+
+/* Filter Modal Styles */
+.filter-modal-content {
+  width: 450px;
+  /* Slightly smaller than create task modal */
+  padding: 25px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 15px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  color: #111;
+}
+
+.filter-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.filter-option-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.filter-option-row:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+.filter-option-row.active {
+  background: rgba(0, 143, 93, 0.05);
+}
+
+.filter-checkbox {
+  width: 20px;
+  height: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  background: white;
+}
+
+.filter-checkbox.checked {
+  background: #008f5d;
+  border-color: #008f5d;
+}
+
+.filter-label {
+  font-size: 17px;
+  font-weight: 500;
+  color: #444;
+}
+
+/* Delete Modal Styles */
+.delete-modal-content {
+  width: 500px;
+  padding: 35px;
+  text-align: left;
+}
+
+.delete-modal-header {
+  margin-bottom: 25px;
+}
+
+.delete-modal-title {
+  color: #ff4d4d;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+.delete-modal-subtitle {
+  color: #888;
+  font-size: 16px;
+  margin: 0;
+}
+
+.delete-task-info {
+  background: rgba(0, 0, 0, 0.03);
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+}
+
+.delete-task-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 5px 0;
+}
+
+.delete-task-desc {
+  font-size: 15px;
+  color: #666;
+  margin: 0;
+}
+
+.delete-modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.delete-confirm-btn {
+  background: #a0a0a0;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  font-weight: 600;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.delete-confirm-btn:hover {
+  background: #8e8e8e;
+}
+
+.delete-btn-icon {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) invert(1);
+  /* Make icon white */
+}
+
+.delete-cancel-btn {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 25px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.delete-cancel-btn:hover {
+  background: #fa5252;
+}
+
+.calendar-icon-mask {
+  background-color: currentColor;
+  mask-image: url('/images/Calendar.svg');
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url('/images/Calendar.svg');
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
+  display: inline-block;
+}
